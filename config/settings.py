@@ -6,7 +6,6 @@ from tutorial.settings import INSTALLED_APPS
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
@@ -17,7 +16,6 @@ SECRET_KEY = 'django-insecure-$x@b6n6%%a!8=$_%i)_my4^71elmnh)5p9)+@ush65q2j)alt_
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -35,12 +33,13 @@ THIRD_PARTY_APPS = [
 ]
 
 USER_APPS = [
-
+    'app.users.apps.UsersConfig',
+    'app.courses.apps.CoursesConfig',
+    'app.lessons.apps.LessonsConfig',
+    'app.api.apps.ApiConfig',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + USER_APPS
-
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -72,21 +71,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'course7',          # Имя базы данных, созданной на сервере
-        'USER': 'duser',                 # Имя пользователя
-        'PASSWORD': '123qwer',              # Пароль пользователя
-        'HOST': '31.128.47.101',        # IP-адрес вашего сервера
-        'PORT': '5432',                 # Порт, используемый PostgreSQL
+        'NAME': 'course7',  # Имя базы данных, созданной на сервере
+        'USER': 'duser',  # Имя пользователя
+        'PASSWORD': '123qwer',  # Пароль пользователя
+        'HOST': '31.128.47.101',  # IP-адрес вашего сервера
+        'PORT': '5432',  # Порт, используемый PostgreSQL
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -106,7 +103,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
@@ -117,7 +113,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
@@ -130,3 +125,5 @@ MEDIA_ROOT = BASE_DIR / "media"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'users.CustomUser'
