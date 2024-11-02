@@ -1,3 +1,4 @@
+# api/versions/v1/lessons/views.py
 from rest_framework import generics
 
 from .serializers import LessonSerializer, Lesson

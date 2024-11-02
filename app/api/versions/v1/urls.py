@@ -2,7 +2,8 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter, SimpleRouter
 
-from app.api.versions.v1.courses.views import CourseViewSet
+from .courses.views import CourseViewSet
+from .users.views import UserViewSet
 from config import settings
 from .lessons.urls import urlpatterns as lesson_urls
 
@@ -10,6 +11,7 @@ from .lessons.urls import urlpatterns as lesson_urls
 router = DefaultRouter() if settings.DEBUG else SimpleRouter()
 
 router.register(r'courses', CourseViewSet, basename='course')
+router.register(r'users', UserViewSet, basename='user')
 
 urlpatterns = [
     path('', include(router.urls)),
