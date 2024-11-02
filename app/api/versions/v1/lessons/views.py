@@ -1,12 +1,12 @@
 # api/versions/v1/lessons/views.py
 from rest_framework import generics
 
-from .serializers import LessonSerializer, Lesson
+from .serializers import LessonBaseSerializer, Lesson
 
 
 class LessonBaseAPIView:
     queryset = Lesson.objects.all()
-    serializer_class = LessonSerializer
+    serializer_class = LessonBaseSerializer
 
 
 class LessonListAPIView(LessonBaseAPIView, generics.ListAPIView):
