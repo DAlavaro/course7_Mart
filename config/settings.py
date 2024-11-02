@@ -37,6 +37,7 @@ USER_APPS = [
     'app.courses.apps.CoursesConfig',
     'app.lessons.apps.LessonsConfig',
     'app.api.apps.ApiConfig',
+    'app.payments.apps.PaymentsConfig',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + USER_APPS
