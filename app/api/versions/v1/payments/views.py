@@ -1,4 +1,5 @@
 # api/versions/v1/payments/views.py
+from .filter import PaymentFilter
 from .serializers import PaymentListSerializer, Payment
 from rest_framework import generics
 from django_filters.rest_framework import DjangoFilterBackend
@@ -12,6 +13,6 @@ class PaymentBaseAPIView:
 
 class PaymentListAPIView(PaymentBaseAPIView, generics.ListAPIView):
     filter_backends = [DjangoFilterBackend, OrderingFilter]
-    filterset_fields = ['course', 'lesson']  # Фильтрация по курсу и уроку
+    filterset_class = PaymentFilter  # Устанавливаем кастомный фильтр
     ordering_fields = ['date_pay']  # Поля, по которым можно сортировать
     ordering = ['-date_pay']  # Сортировка по умолчанию (по убыванию даты оплаты)
