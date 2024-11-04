@@ -12,5 +12,6 @@ class PaymentBaseAPIView:
 
 class PaymentListAPIView(PaymentBaseAPIView, generics.ListAPIView):
     filter_backends = [DjangoFilterBackend, OrderingFilter]
+    filterset_fields = ['course', 'lesson']  # Фильтрация по курсу и уроку
     ordering_fields = ['date_pay']  # Поля, по которым можно сортировать
     ordering = ['-date_pay']  # Сортировка по умолчанию (по убыванию даты оплаты)
