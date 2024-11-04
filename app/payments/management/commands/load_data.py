@@ -1,9 +1,9 @@
+# app/payments/management/commands/load_data.py
 from django.core.management.base import BaseCommand
 from app.users.models import CustomUser
 from app.courses.models import Course
 from app.lessons.models import Lesson
 from app.payments.models import Payment
-from datetime import datetime, timedelta
 
 
 class Command(BaseCommand):
