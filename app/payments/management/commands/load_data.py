@@ -3,6 +3,8 @@ from app.users.models import CustomUser
 from app.courses.models import Course
 from app.lessons.models import Lesson
 from app.payments.models import Payment
+from datetime import datetime, timedelta
+
 
 class Command(BaseCommand):
     help = 'Load initial data into the database'
