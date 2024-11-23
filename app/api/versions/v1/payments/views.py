@@ -1,4 +1,5 @@
 # api/versions/v1/payments/views.py
+from rest_framework.permissions import IsAuthenticated
 from .filter import PaymentFilter
 from .serializers import PaymentListSerializer, Payment
 from rest_framework import generics
@@ -11,7 +12,9 @@ class PaymentBaseAPIView:
     serializer_class = PaymentListSerializer
 
 
+
 class PaymentListAPIView(PaymentBaseAPIView, generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = PaymentFilter  # Устанавливаем кастомный фильтр
     ordering_fields = ['date_pay']  # Поля, по которым можно сортировать
