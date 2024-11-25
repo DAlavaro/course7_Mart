@@ -8,6 +8,10 @@ python manage.py load_data
 ```
 python manage.py add_payments
 ```
+- Для создания группы модераторов команда:
+```
+python manage.py create_moderator_group
+```
 - [Коллекция запросов Postman](./course7.postman_collection.json)
 # Задание 1
 - [x] Настройте в проекте использование JWT-авторизации и закройте каждый эндпоинт авторизацией.

@@ -11,6 +11,7 @@ def upload_avatar(file, model)->str:
 class UserRoles(models.TextChoices):
     MEMBER = 'member', _('member')
     MODERATOR = 'moderator', _('moderator')
+    ADMIN = 'admin', _('admin')
 
 
 class CustomUser(AbstractUser):

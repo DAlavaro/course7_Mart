@@ -2,29 +2,29 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from .serializers import LessonBaseSerializer, Lesson
+from ..users.permissions import IsModerator
 
 
 class LessonBaseAPIView:
     queryset = Lesson.objects.all()
     serializer_class = LessonBaseSerializer
-    permission_classes = [IsAuthenticated]
 
 
 class LessonListAPIView(LessonBaseAPIView, generics.ListAPIView):
-    pass
+    permission_classes = [IsAuthenticated, IsModerator]
 
 
 class LessonCreateAPIView(LessonBaseAPIView, generics.CreateAPIView):
-    pass
+    permission_classes = [IsAuthenticated]
 
 
 class LessonRetrieveAPIView(LessonBaseAPIView, generics.RetrieveAPIView):
-    pass
+   permission_classes = [IsAuthenticated, IsModerator]
 
 
 class LessonUpdateAPIView(LessonBaseAPIView, generics.UpdateAPIView):
-    pass
+    permission_classes = [IsAuthenticated, IsModerator]
 
 
 class LessonDestroyAPIView(LessonBaseAPIView, generics.DestroyAPIView):
-    pass
+    permission_classes = [IsAuthenticated]

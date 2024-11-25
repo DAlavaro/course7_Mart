@@ -1,3 +1,4 @@
+from django.contrib.auth.models import Group
 from django.core.management.base import BaseCommand
 from app.users.models import CustomUser, UserRoles
 from app.courses.models import Course
@@ -16,20 +17,6 @@ class Command(BaseCommand):
         Course.objects.all().delete()
         CustomUser.objects.all().delete()
 
-        # Создание курсов
-        self.stdout.write(self.style.SUCCESS('Создаём курсы...'))
-        course1 = Course.objects.create(name='Course 1', description='Description for Course 1')
-        course2 = Course.objects.create(name='Course 2', description='Description for Course 2')
-
-        # Создание уроков
-        self.stdout.write(self.style.SUCCESS('Создаём уроки...'))
-        lesson1 = Lesson.objects.create(name='Lesson 1', description='Description for Lesson 1')
-        lesson2 = Lesson.objects.create(name='Lesson 2', description='Description for Lesson 2')
-
-        # Привязка уроков к курсам
-        course1.lessons.add(lesson1, lesson2)
-        course2.lessons.add(lesson2)
-
         # Создание пользователей
         self.stdout.write(self.style.SUCCESS('Создаем пользователей...'))
 
@@ -41,6 +28,11 @@ class Command(BaseCommand):
         )
         moderator.set_password('123')
         moderator.save()
+
+        # Добавляем пользователя в группу Moderators
+        moderator_group = Group.objects.get(name='Moderators')
+        moderator.groups.add(moderator_group)
+        self.stdout.write(self.style.SUCCESS('Пользователь moderator добавлен в группу Moderators'))
 
         user1 = CustomUser.objects.create(
             email='user1@example.com',
@@ -61,6 +53,26 @@ class Command(BaseCommand):
         user2.save()
 
         self.stdout.write(self.style.SUCCESS('Создание пользователей успешно завершено!'))
+
+        # Создание курсов
+        self.stdout.write(self.style.SUCCESS('Создаём курсы...'))
+        course1 = Course.objects.create(name='Course 1', description='Description for Course 1')
+        course1.owners.add(user1)
+
+        course2 = Course.objects.create(name='Course 2', description='Description for Course 2')
+        course2.owners.add(user2)
+
+        # Создание уроков
+        self.stdout.write(self.style.SUCCESS('Создаём уроки...'))
+        lesson1 = Lesson.objects.create(name='Lesson 1', description='Description for Lesson 1')
+        lesson1.owners.add(user1)
+        lesson1.course.add(course1)
+
+        lesson2 = Lesson.objects.create(name='Lesson 2', description='Description for Lesson 2')
+        lesson2.owners.add(user1, user2)  # Пример нескольких владельцев
+        lesson2.course.add(course1, course2)
+
+        self.stdout.write(self.style.SUCCESS('Уроки и курсы успешно созданы!'))
 
         # Создание платежей
         self.stdout.write(self.style.SUCCESS('Создаём платежи...'))
